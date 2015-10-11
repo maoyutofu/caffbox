@@ -1,21 +1,13 @@
 package main
 
 import (
+	. "github.com/tjz101/caffbox"
 	c "github.com/tjz101/caffbox/controller"
 	"github.com/tjz101/caffmux"
 )
 
-var (
-	docs   string
-	rename bool
-)
-
-func init() {
-
-}
-
 func main() {
-	caffmux.Debug("listen to :7001")
+	caffmux.Debug("listen to " + Sett.Addr)
 
 	app := caffmux.NewApplication()
 
@@ -29,5 +21,5 @@ func main() {
 	view := &c.ViewController{}
 	app.Router("^/v/:file(.*)", view)
 
-	app.Run(":7001")
+	app.Run(Sett.Addr)
 }

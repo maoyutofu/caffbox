@@ -36,16 +36,18 @@ var (
 func init() {
 	prop := goprop.NewProp()
 	prop.Read("./conf.properties")
+	addr := prop.Get("addr")
 	docs := prop.Get("docs")
 	rename, err := strconv.ParseBool(prop.Get("rename"))
 	if err != nil {
 		rename = false
 	}
-	Sett = &Setting{Rename: rename}
+	Sett = &Setting{Addr: addr, Rename: rename}
 	RootPhysicalPath = filepath.Join(docs, ROOT_DIR)
 }
 
 type Setting struct {
+	Addr   string
 	Rename bool
 }
 
