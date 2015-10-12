@@ -62,7 +62,7 @@ func (c *ViewController) Get() {
 	case ".jpg":
 		contentType = "image/jpeg"
 	case ".gif":
-		contetnType = "image/gif"
+		contentType = "image/gif"
 	case ".png":
 		contentType = "image/png"
 	case ".bmp":
