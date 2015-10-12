@@ -54,7 +54,7 @@ func writeFileToPath(path string, file multipart.File, header *multipart.FileHea
 		return caffbox.Response{ErrCode: caffbox.CODE_FILE_SAVE_FAILED, ErrMsg: caffbox.MSG_FILE_SAVE_FAILED}, err
 	}
 	absPath, _ := util.GetAbsPath(physicalPath)
-	return caffbox.Response{ErrCode: caffbox.CODE_SUCCESS, ErrMsg: caffbox.MSG_SUCCESS, Data: caffbox.CaffFile{Name: destFilename, Path: absPath}}, nil
+	return caffbox.Response{ErrCode: caffbox.CODE_SUCCESS, ErrMsg: caffbox.MSG_SUCCESS, Data: caffbox.CaffFile{Name: destFilename, Path: absPath, Filename: header.Filename}}, nil
 }
 
 func writeMsg(w http.ResponseWriter, response caffbox.Response) {
