@@ -69,6 +69,8 @@ func (c *ViewController) Get() {
 		contentType = "image/bmp"
 	case ".xml":
 		contentType = "text/xml"
+	case ".json":
+		contentType = "application/json"
 	default:
 	}
 	if contentType == "" {
