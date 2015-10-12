@@ -57,6 +57,18 @@ func (c *ViewController) Get() {
 		contentType = "text/html"
 	case ".txt":
 		contentType = "text/plain"
+	case ".jpeg":
+		contentType = "image/jpeg"
+	case ".jpg":
+		contentType = "image/jpeg"
+	case ".gif":
+		contetnType = "image/gif"
+	case ".png":
+		contentType = "image/png"
+	case ".bmp":
+		contentType = "image/bmp"
+	case ".xml":
+		contentType = "text/xml"
 	default:
 	}
 	if contentType == "" {
