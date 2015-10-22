@@ -1,6 +1,7 @@
 package caffbox
 
 import (
+	"fmt"
 	"github.com/tjz101/goprop"
 	"path/filepath"
 	"strconv"
@@ -33,9 +34,10 @@ var (
 	RootPhysicalPath string
 )
 
-func init() {
+func ParseConf(path string) {
 	prop := goprop.NewProp()
-	prop.Read("./conf/conf.properties")
+	confFilename := fmt.Sprintf("%s/conf/conf.properties", path)
+	prop.Read(confFilename)
 	addr := prop.Get("addr")
 	docs := prop.Get("docs")
 	rename, err := strconv.ParseBool(prop.Get("rename"))
