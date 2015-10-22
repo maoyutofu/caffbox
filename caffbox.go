@@ -58,7 +58,7 @@ type Response struct {
 }
 
 type CaffFile struct {
-	Name     string `json:"name"`
-	Path     string `json:"path"`
-	Filename string `json:"filename"`
+	Name         string `json:"name"`
+	Path         string `json:"path"`
+	OriginalName string `json:"originalName"`
 }
