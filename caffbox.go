@@ -35,7 +35,7 @@ var (
 
 func init() {
 	prop := goprop.NewProp()
-	prop.Read("./conf.properties")
+	prop.Read("./conf/conf.properties")
 	addr := prop.Get("addr")
 	docs := prop.Get("docs")
 	rename, err := strconv.ParseBool(prop.Get("rename"))

@@ -3,10 +3,12 @@ package main
 import (
 	. "github.com/tjz101/caffbox"
 	c "github.com/tjz101/caffbox/controller"
+	"github.com/tjz101/caffbox/util"
 	"github.com/tjz101/caffmux"
 )
 
 func main() {
+	util.WritePid()
 	caffmux.Debug("listen to " + Sett.Addr)
 
 	app := caffmux.NewApplication()
