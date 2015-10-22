@@ -150,14 +150,3 @@ func GetAbsPath(path string) (string, error) {
 	}
 	return filepath.Join(caffbox.ROOT_DIR, rel), nil
 }
-
-func WritePid() error {
-	pid := os.Getpid()
-	f, err := os.OpenFile("./logs/caffbox.pid", os.O_WRONLY|os.O_CREATE, 0660)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	_, err = f.WriteString(strconv.Itoa(pid))
-	return err
-}

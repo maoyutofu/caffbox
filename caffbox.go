@@ -3,6 +3,8 @@ package caffbox
 import (
 	"fmt"
 	"github.com/tjz101/goprop"
+	"os"
+	"os/exec"
 	"path/filepath"
 	"strconv"
 )
@@ -34,8 +36,12 @@ var (
 	RootPhysicalPath string
 )
 
-func ParseConf(path string) {
+func ParseConf() {
 	prop := goprop.NewProp()
+	path, err := GetExecPath()
+	if err != nil {
+		os.Exit(1)
+	}
 	confFilename := fmt.Sprintf("%s/conf/conf.properties", path)
 	prop.Read(confFilename)
 	addr := prop.Get("addr")
@@ -63,4 +69,31 @@ type CaffFile struct {
 	Name         string `json:"name"`
 	Path         string `json:"path"`
 	OriginalName string `json:"originalName"`
+}
+
+func GetExecPath() (string, error) {
+	file, err := exec.LookPath(os.Args[0])
+	if err != nil {
+		return "", err
+	}
+	path, err := filepath.Abs(file)
+	if err != nil {
+		return "", err
+	}
+	return filepath.Dir(path), nil
+}
+func WritePid() error {
+	path, err := GetExecPath()
+	if err != nil {
+		return err
+	}
+	pidFilename := fmt.Sprintf("%s/logs/caffbox.pid", path)
+	pid := os.Getpid()
+	f, err := os.OpenFile(pidFilename, os.O_WRONLY|os.O_CREATE, 0660)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	_, err = f.WriteString(strconv.Itoa(pid))
+	return err
 }
