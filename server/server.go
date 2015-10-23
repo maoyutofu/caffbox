@@ -8,7 +8,6 @@ import (
 
 func main() {
 	ParseConf()
-	WritePid()
 	caffmux.Debug("listen to " + Sett.Addr)
 
 	app := caffmux.NewApplication()
