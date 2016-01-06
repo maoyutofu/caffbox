@@ -150,3 +150,18 @@ func GetAbsPath(path string) (string, error) {
 	}
 	return filepath.Join(caffbox.ROOT_DIR, rel), nil
 }
+
+func IsPic(file string) bool {
+	if strings.LastIndex(file, ".jpg") != -1 {
+		return true
+	} else if strings.LastIndex(file, ".jpeg") != -1 {
+		return true
+	} else if strings.LastIndex(file, ".gif") != -1 {
+		return true
+	} else if strings.LastIndex(file, ".png") != -1 {
+		return true
+	} else if strings.LastIndex(file, ".bmp") != -1 {
+		return true
+	}
+	return false
+}
