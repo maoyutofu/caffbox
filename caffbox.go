@@ -66,9 +66,9 @@ type Response struct {
 }
 
 type CaffFile struct {
-	Name         string `json:"name"`
-	Path         string `json:"path"`
-	OriginalName string `json:"originalName"`
+	Name         string `json:"fileName"`
+	Path         string `json:"filePath"`
+	OriginalName string `json:"ioFileName"`
 }
 
 func GetExecPath() (string, error) {

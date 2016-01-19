@@ -1,13 +1,14 @@
 package controller
 
 import (
+	//"bytes"
 	"errors"
 	"fmt"
 	"github.com/tjz101/caffbox/util"
 	"github.com/tjz101/caffmux"
-	"io/ioutil"
+	//"io/ioutil"
 	"net/http"
-	"os"
+	//"os"
 	"os/exec"
 	"path/filepath"
 	"regexp"
@@ -150,19 +151,26 @@ func (c *ViewController) Get() {
 		http.NotFound(w, r)
 		return
 	}
-
-	f, err := os.Open(filePath)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
-	defer f.Close()
-	buff, err := ioutil.ReadAll(f)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
-
-	w.Header().Set("Content-Type", contentType)
-	w.Write(buff)
+	/*
+		f, err := os.Open(filePath)
+		if err != nil {
+			http.NotFound(w, r)
+			return
+		}
+		defer f.Close()
+		d, err := f.Stat()
+		if err != nil {
+			http.NotFound(w, r)
+			return
+		}
+		buff, err := ioutil.ReadAll(f)
+		if err != nil {
+			http.NotFound(w, r)
+			return
+		}
+		w.Header().Set("Content-Type", contentType)
+		w.Write(buff)
+		http.ServeContent(w, r, d.Name(), d.ModTime(), bytes.NewReader(buff))
+	*/
+	http.ServeFile(w, r, filePath)
 }
