@@ -50,13 +50,16 @@ func ParseConf() {
 	if err != nil {
 		rename = false
 	}
-	Sett = &Setting{Addr: addr, Rename: rename}
+	watermark := prop.Get("watermark")
+	Sett = &Setting{Addr: addr, Docs: docs, Rename: rename, Watermark: watermark}
 	RootPhysicalPath = filepath.Join(docs, ROOT_DIR)
 }
 
 type Setting struct {
-	Addr   string
-	Rename bool
+	Addr      string
+	Docs      string
+	Rename    bool
+	Watermark string
 }
 
 type Response struct {

@@ -13,13 +13,14 @@ func (c *UploadController) Post() {
 	r := c.Content.Request
 	w := c.Content.ResponseWriter
 	path := r.FormValue("path")
+	watermark := r.FormValue("watermark")
 	file, header, err := r.FormFile("file")
 	if err != nil {
 		writeMsg(w, Response{ErrCode: CODE_NOT_FOUND, ErrMsg: MSG_NOT_FOUND})
 		return
 	}
 	defer file.Close()
-	resp, err := writeFileToPath(path, file, header)
+	resp, err := writeFileToPath(path, file, watermark, header)
 	if err != nil {
 		writeMsg(w, resp)
 		return

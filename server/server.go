@@ -14,7 +14,7 @@ func command() {
 		for i := 1; i < arg_num; i++ {
 			cmd := os.Args[i]
 			if cmd == "-v" {
-				fmt.Println("caffbox version: caffbox/1.0.3")
+				fmt.Println("caffbox version: caffbox/1.0.4")
 			}
 		}
 		os.Exit(0)

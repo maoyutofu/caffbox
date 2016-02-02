@@ -9,15 +9,17 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
-func writeFile(file multipart.File, header *multipart.FileHeader) (caffbox.Response, error) {
-	resp, err := writeFileToPath("", file, header)
+func writeFile(file multipart.File, watermark string, header *multipart.FileHeader) (caffbox.Response, error) {
+	resp, err := writeFileToPath("", file, watermark, header)
 	return resp, err
 }
 
-func writeFileToPath(path string, file multipart.File, header *multipart.FileHeader) (caffbox.Response, error) {
+func writeFileToPath(path string, file multipart.File, watermark string, header *multipart.FileHeader) (caffbox.Response, error) {
 	if path == "" {
 		path = util.PathFromTime()
 	}
@@ -52,6 +54,16 @@ func writeFileToPath(path string, file multipart.File, header *multipart.FileHea
 	_, err = io.Copy(destFile, file)
 	if err != nil {
 		return caffbox.Response{ErrCode: caffbox.CODE_FILE_SAVE_FAILED, ErrMsg: caffbox.MSG_FILE_SAVE_FAILED}, err
+	}
+	if watermark == "y" && caffbox.Sett.Watermark != "" {
+		cmdFormat := "composite -gravity center %s %s %s"
+		cmd := fmt.Sprintf(cmdFormat, caffbox.Sett.Watermark, filePhysicalPath, filePhysicalPath)
+		list := strings.Split(cmd, " ")
+		c := exec.Command(list[0], list[1:]...)
+		err := c.Run()
+		if err != nil {
+			return caffbox.Response{ErrCode: caffbox.CODE_FILE_SAVE_FAILED, ErrMsg: caffbox.MSG_FILE_SAVE_FAILED}, err
+		}
 	}
 	absPath, _ := util.GetAbsPath(physicalPath)
 	return caffbox.Response{ErrCode: caffbox.CODE_SUCCESS, ErrMsg: caffbox.MSG_SUCCESS, Data: caffbox.CaffFile{Name: destFilename, Path: absPath, OriginalName: header.Filename}}, nil
